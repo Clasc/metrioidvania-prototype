@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsvlytbb5mge8"]
+
+[ext_resource type="Texture2D" uid="uid://btdnsdg0ypij1" path="res://Scenes/Hero/Gfx/adventurer-Sheet.png" id="1_6hyy6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3fri3"]
+radius = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4ajn"]
+atlas = ExtResource("1_6hyy6")
+region = Rect2(0, 0, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0mmt"]
+atlas = ExtResource("1_6hyy6")
+region = Rect2(50, 0, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nro43"]
+atlas = ExtResource("1_6hyy6")
+region = Rect2(100, 0, 50, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8l1o4"]
+atlas = ExtResource("1_6hyy6")
+region = Rect2(150, 0, 50, 37)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_is2aa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4ajn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0mmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nro43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8l1o4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Hero" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_3fri3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_is2aa")
+animation = &"idle"
