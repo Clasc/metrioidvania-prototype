@@ -1,40 +1,48 @@
 using Godot;
-using System;
 
 public partial class HeroStateMachine : CharacterBody2D
 {
-	public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+	public HeroStateIdle stateIdle = new HeroStateIdle();
+
+	public AnimatedSprite2D HeroAnimations;
+
+	private IHeroState currentState;
+	private bool isInitialized;
+
+	public override void _Ready()
+	{
+		isInitialized = InitHeroStateMachine();
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
-
-		// Add the gravity.
-		if (!IsOnFloor())
+		base._PhysicsProcess(delta);
+		if (isInitialized)
 		{
-			velocity += GetGravity() * (float)delta;
+			UpdateHeroState(delta);
 		}
+	}
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
+	private bool InitHeroStateMachine()
+	{
+		currentState = stateIdle;
+		return HasHeroAnimationsNode();
+	}
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		}
+	private bool HasHeroAnimationsNode()
+	{
+		HeroAnimations = GetNode<AnimatedSprite2D>("./HeroAnimations");
 
-		Velocity = velocity;
-		MoveAndSlide();
+		if (HeroAnimations is null)
+		{
+			GD.PrintErr("HeroStatemachine.cs -- GetAnimationsNode() -- HeroAnimations is null");
+			return false;
+		}
+		return true;
+	}
+
+	private void UpdateHeroState(double delta)
+	{
+		currentState = currentState.DoState(this, delta);
 	}
 }
