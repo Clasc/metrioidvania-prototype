@@ -1,0 +1,53 @@
+using Godot;
+
+public class HeroMoveLogic
+{
+    private float _gravity = 1000;
+    private float _speed = 1200;
+    private float _maxMovementSpeed = 200;
+    private float _friction = 1.0f;
+
+    public Vector2 SnapVector;
+
+    HeroStateMachine Hero;
+
+    public HeroMoveLogic(HeroStateMachine heroStateMachine)
+    {
+        Hero = heroStateMachine;
+    }
+
+    public void MoveHero()
+    {
+        Hero.MoveAndSlide();
+    }
+
+    public void UpdateMovement(double delta)
+    {
+        var xVelocity = Input.GetAxis("MoveLeft", "MoveRight") * _speed;
+        Hero.UpdateX(xVelocity);
+        Hero.UpdateX(Mathf.Clamp(Hero.Velocity.X, -_maxMovementSpeed, _maxMovementSpeed));
+        Flip(xVelocity);
+        IsMoving();
+    }
+
+    public void ApplyGravity(double delta)
+    {
+        Hero.UpdateY(Hero.Velocity.Y + (float)(_gravity * delta));
+    }
+
+    private void Flip(float xVelocity)
+    {
+        Hero.HeroAnimations.FlipH = xVelocity < 0;
+    }
+
+    private void IsMoving()
+    {
+
+        Hero.IsMoving = Hero.Velocity.X != 0;
+    }
+
+    private bool IsHeroOnSlope()
+    {
+        return Hero.GetFloorNormal().X != 0;
+    }
+}

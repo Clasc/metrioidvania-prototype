@@ -2,12 +2,29 @@ using Godot;
 
 public partial class HeroStateMachine : CharacterBody2D
 {
-	public HeroStateIdle stateIdle = new HeroStateIdle();
+	public HeroStateIdle heroStateIdle = new HeroStateIdle();
+	public HeroStateRun heroStateRun = new HeroStateRun();
+	public HeroStateFall heroStateFall = new HeroStateFall();
 
 	public AnimatedSprite2D HeroAnimations;
 
 	private IHeroState currentState;
+
+	private HeroMoveLogic _heroMoveLogic;
+
 	private bool isInitialized;
+
+	public bool IsMoving { get; internal set; }
+
+	public void UpdateX(float x)
+	{
+		Velocity = new Vector2(x, Velocity.Y);
+	}
+
+	public void UpdateY(float y)
+	{
+		Velocity = new Vector2(Velocity.X, y);
+	}
 
 	public override void _Ready()
 	{
@@ -16,16 +33,19 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		base._PhysicsProcess(delta);
 		if (isInitialized)
 		{
 			UpdateHeroState(delta);
+			_heroMoveLogic.ApplyGravity(delta);
+			_heroMoveLogic.UpdateMovement(delta);
+			_heroMoveLogic.MoveHero();
 		}
 	}
 
 	private bool InitHeroStateMachine()
 	{
-		currentState = stateIdle;
+		currentState = heroStateIdle;
+		_heroMoveLogic = new HeroMoveLogic(this);
 		return HasHeroAnimationsNode();
 	}
 
@@ -44,5 +64,15 @@ public partial class HeroStateMachine : CharacterBody2D
 	private void UpdateHeroState(double delta)
 	{
 		currentState = currentState.DoState(this, delta);
+	}
+
+	internal void EnableSnap()
+	{
+		_heroMoveLogic.SnapVector = new Vector2(0, 15);
+	}
+
+	internal void DisableSnap()
+	{
+		_heroMoveLogic.SnapVector = Vector2.Zero;
 	}
 }

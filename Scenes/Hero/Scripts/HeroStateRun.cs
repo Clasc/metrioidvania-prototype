@@ -1,21 +1,20 @@
-public class HeroStateIdle : IHeroState
+using System.Text;
+
+public class HeroStateRun : IHeroState
 {
     public IHeroState DoState(HeroStateMachine hero, double deltaTime)
     {
+        hero.HeroAnimations.Play("HeroRun");
         if (!hero.IsOnFloor())
         {
             return hero.heroStateFall;
         }
-        if (hero.IsMoving)
+
+        if (hero.IsOnFloor() && !hero.IsMoving)
         {
             return hero.heroStateRun;
         }
-        if (!hero.IsMoving)
-        {
-            hero.EnableSnap();
-            hero.HeroAnimations.Play("Idle");
-            return hero.heroStateIdle;
-        }
+
         return hero.heroStateIdle;
     }
 }
