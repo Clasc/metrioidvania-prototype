@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public class HeroMoveLogic
@@ -5,7 +6,8 @@ public class HeroMoveLogic
     private float _gravity = 1000;
     private float _speed = 1200;
     private float _maxMovementSpeed = 200;
-    private float _friction = 1.0f;
+    private float _friction = 0.7f;
+    private float _acceleration = 0.5f;
 
     public Vector2 SnapVector;
 
@@ -24,8 +26,17 @@ public class HeroMoveLogic
     public void UpdateMovement(double delta)
     {
         var xVelocity = Input.GetAxis("MoveLeft", "MoveRight") * _speed;
-        Hero.UpdateX(xVelocity);
+        if (xVelocity != 0)
+        {
+            Hero.UpdateX(Lerp(xVelocity, xVelocity * _speed, _acceleration));
+        }
+        else
+        {
+            Hero.UpdateX(Lerp(Hero.Velocity.X, 0.0f, _friction));
+        }
+
         Hero.UpdateX(Mathf.Clamp(Hero.Velocity.X, -_maxMovementSpeed, _maxMovementSpeed));
+
         Flip(xVelocity);
         IsMoving();
     }
@@ -42,7 +53,6 @@ public class HeroMoveLogic
 
     private void IsMoving()
     {
-
         Hero.IsMoving = Hero.Velocity.X != 0;
     }
 
@@ -50,4 +60,10 @@ public class HeroMoveLogic
     {
         return Hero.GetFloorNormal().X != 0;
     }
+
+    float Lerp(float firstFloat, float secondFloat, float by)
+    {
+        return firstFloat * (1 - by) + secondFloat * by;
+    }
+
 }
