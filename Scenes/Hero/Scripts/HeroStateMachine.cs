@@ -16,15 +16,7 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	public bool IsMoving { get; internal set; }
 
-	public void UpdateX(float x)
-	{
-		Velocity = new Vector2(x, Velocity.Y);
-	}
 
-	public void UpdateY(float y)
-	{
-		Velocity = new Vector2(Velocity.X, y);
-	}
 
 	public override void _Ready()
 	{

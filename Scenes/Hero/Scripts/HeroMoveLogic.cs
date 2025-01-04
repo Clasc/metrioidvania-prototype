@@ -28,14 +28,14 @@ public class HeroMoveLogic
         var xVelocity = Input.GetAxis("MoveLeft", "MoveRight") * _speed;
         if (xVelocity != 0)
         {
-            Hero.UpdateX(Lerp(xVelocity, xVelocity * _speed, _acceleration));
+            UpdateX(Lerp(xVelocity, xVelocity * _speed, _acceleration));
         }
         else
         {
-            Hero.UpdateX(Lerp(Hero.Velocity.X, 0.0f, _friction));
+            UpdateX(Lerp(Hero.Velocity.X, 0.0f, _friction));
         }
 
-        Hero.UpdateX(Mathf.Clamp(Hero.Velocity.X, -_maxMovementSpeed, _maxMovementSpeed));
+        UpdateX(Mathf.Clamp(Hero.Velocity.X, -_maxMovementSpeed, _maxMovementSpeed));
 
         Flip(xVelocity);
         IsMoving();
@@ -43,7 +43,7 @@ public class HeroMoveLogic
 
     public void ApplyGravity(double delta)
     {
-        Hero.UpdateY(Hero.Velocity.Y + (float)(_gravity * delta));
+        UpdateY(Hero.Velocity.Y + (float)(_gravity * delta));
     }
 
     private void Flip(float xVelocity)
@@ -64,6 +64,16 @@ public class HeroMoveLogic
     float Lerp(float firstFloat, float secondFloat, float by)
     {
         return firstFloat * (1 - by) + secondFloat * by;
+    }
+
+    public void UpdateX(float x)
+    {
+        Hero.Velocity = new Vector2(x, Hero.Velocity.Y);
+    }
+
+    public void UpdateY(float y)
+    {
+        Hero.Velocity = new Vector2(Hero.Velocity.X, y);
     }
 
 }
