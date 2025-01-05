@@ -4,18 +4,18 @@ public class HeroStateIdle : IHeroState
     {
         if (!hero.IsOnFloor())
         {
-            return hero.heroStateFall;
+            return HeroState.FALL;
         }
         if (hero.IsMoving)
         {
-            return hero.heroStateRun;
+            return HeroState.RUN;
         }
         if (!hero.IsMoving)
         {
             hero.EnableSnap();
             hero.HeroAnimations.Play("Idle");
-            return hero.heroStateIdle;
+            return HeroState.IDLE;
         }
-        return hero.heroStateIdle;
+        return HeroState.IDLE;
     }
 }

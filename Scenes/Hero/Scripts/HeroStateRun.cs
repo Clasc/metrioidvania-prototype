@@ -7,14 +7,14 @@ public class HeroStateRun : IHeroState
         hero.HeroAnimations.Play("HeroRun");
         if (!hero.IsOnFloor())
         {
-            return hero.heroStateFall;
+            return HeroState.FALL;
         }
 
         if (hero.IsOnFloor() && !hero.IsMoving)
         {
-            return hero.heroStateRun;
+            return HeroState.RUN;
         }
 
-        return hero.heroStateIdle;
+        return HeroState.RUN;
     }
 }

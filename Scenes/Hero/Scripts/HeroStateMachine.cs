@@ -2,17 +2,13 @@ using Godot;
 
 public partial class HeroStateMachine : CharacterBody2D
 {
-	public HeroStateIdle heroStateIdle = new HeroStateIdle();
-	public HeroStateRun heroStateRun = new HeroStateRun();
-	public HeroStateFall heroStateFall = new HeroStateFall();
-
 
 	[Export]
 	public string AnimationNode;
 
 	public AnimatedSprite2D HeroAnimations;
 
-	private IHeroState currentState;
+	private IHeroState _currentState;
 
 	private HeroMoveLogic _heroMoveLogic;
 
@@ -38,7 +34,7 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	private bool InitHeroStateMachine()
 	{
-		currentState = heroStateIdle;
+		_currentState = HeroState.IDLE;
 		_heroMoveLogic = new HeroMoveLogic(this);
 		return HasHeroAnimationsNode();
 	}
@@ -57,7 +53,7 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	private void UpdateHeroState(double delta)
 	{
-		currentState = currentState.DoState(this, delta);
+		_currentState = _currentState.DoState(this, delta);
 	}
 
 	internal void EnableSnap()
