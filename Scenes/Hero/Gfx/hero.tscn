@@ -112,6 +112,7 @@ animations = [{
 scale = Vector2(2, 2)
 floor_snap_length = 10.0
 script = ExtResource("1_2xyv7")
+AnimationNode = "./HeroAnimations"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

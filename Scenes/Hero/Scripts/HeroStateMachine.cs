@@ -6,6 +6,10 @@ public partial class HeroStateMachine : CharacterBody2D
 	public HeroStateRun heroStateRun = new HeroStateRun();
 	public HeroStateFall heroStateFall = new HeroStateFall();
 
+
+	[Export]
+	public string AnimationNode;
+
 	public AnimatedSprite2D HeroAnimations;
 
 	private IHeroState currentState;
@@ -41,7 +45,7 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	private bool HasHeroAnimationsNode()
 	{
-		HeroAnimations = GetNode<AnimatedSprite2D>("./HeroAnimations");
+		HeroAnimations = GetNode<AnimatedSprite2D>(AnimationNode);
 
 		if (HeroAnimations is null)
 		{
