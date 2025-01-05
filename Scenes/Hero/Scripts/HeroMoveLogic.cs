@@ -10,8 +10,6 @@ public class HeroMoveLogic
     private readonly float _acceleration = 0.5f;
     private readonly HeroStateMachine _hero;
 
-    public Vector2 SnapVector;
-
     public HeroMoveLogic(HeroStateMachine heroStateMachine)
     {
         _hero = heroStateMachine;

@@ -12,7 +12,6 @@ public class HeroStateIdle : IHeroState
         }
         if (!hero.IsMoving)
         {
-            hero.EnableSnap();
             hero.HeroAnimations.Play("Idle");
             return HeroState.IDLE;
         }

@@ -4,7 +4,6 @@ public class HeroStateFall : IHeroState
 {
     public IHeroState DoState(HeroStateMachine hero, double deltaTime)
     {
-        hero.EnableSnap();
         hero.HeroAnimations.Play("HeroFall");
         if (hero.IsOnFloor() && hero.IsMoving)
         {

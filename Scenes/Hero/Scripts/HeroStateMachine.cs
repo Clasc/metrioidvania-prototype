@@ -55,14 +55,4 @@ public partial class HeroStateMachine : CharacterBody2D
 	{
 		_currentState = _currentState.DoState(this, delta);
 	}
-
-	internal void EnableSnap()
-	{
-		_heroMoveLogic.SnapVector = new Vector2(0, 15);
-	}
-
-	internal void DisableSnap()
-	{
-		_heroMoveLogic.SnapVector = Vector2.Zero;
-	}
 }
