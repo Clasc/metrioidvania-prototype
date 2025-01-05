@@ -18,8 +18,10 @@ public class HeroStateIdle : IHeroState
         {
             return HeroState.RUN;
         }
+
         if (!hero.IsMoving)
         {
+            hero.EnableSnap();
             hero.HeroAnimations.Play(HeroAnimation.IDLE);
             return HeroState.IDLE;
         }

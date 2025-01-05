@@ -1,5 +1,3 @@
-using Godot;
-
 public class HeroStateJump : IHeroState
 {
     public IHeroState DoState(HeroStateMachine hero, double deltaTime)
