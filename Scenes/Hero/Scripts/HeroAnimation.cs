@@ -1,6 +1,7 @@
 public static class HeroAnimation
 {
     public const string IDLE = "Idle";
-    public const string FALL = "HeroFall";
-    public const string RUN = "HeroRun";
+    public const string FALL = "Fall";
+    public const string RUN = "Run";
+    public const string JUMP = "Jump";
 }
