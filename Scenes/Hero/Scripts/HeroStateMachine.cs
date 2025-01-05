@@ -16,8 +16,6 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	public bool IsMoving { get; internal set; }
 
-
-
 	public override void _Ready()
 	{
 		_isInitialized = InitHeroStateMachine();
