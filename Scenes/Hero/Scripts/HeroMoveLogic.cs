@@ -3,24 +3,23 @@ using Godot;
 
 public class HeroMoveLogic
 {
-    private float _gravity = 1000;
-    private float _speed = 1200;
-    private float _maxMovementSpeed = 200;
-    private float _friction = 0.7f;
-    private float _acceleration = 0.5f;
+    private readonly float _gravity = 1000;
+    private readonly float _speed = 1200;
+    private readonly float _maxMovementSpeed = 200;
+    private readonly float _friction = 0.7f;
+    private readonly float _acceleration = 0.5f;
+    private readonly HeroStateMachine _hero;
 
     public Vector2 SnapVector;
 
-    HeroStateMachine Hero;
-
     public HeroMoveLogic(HeroStateMachine heroStateMachine)
     {
-        Hero = heroStateMachine;
+        _hero = heroStateMachine;
     }
 
     public void MoveHero()
     {
-        Hero.MoveAndSlide();
+        _hero.MoveAndSlide();
     }
 
     public void UpdateMovement(double delta)
@@ -32,10 +31,10 @@ public class HeroMoveLogic
         }
         else
         {
-            UpdateX(Lerp(Hero.Velocity.X, 0.0f, _friction));
+            UpdateX(Lerp(_hero.Velocity.X, 0.0f, _friction));
         }
 
-        UpdateX(Mathf.Clamp(Hero.Velocity.X, -_maxMovementSpeed, _maxMovementSpeed));
+        UpdateX(Mathf.Clamp(_hero.Velocity.X, -_maxMovementSpeed, _maxMovementSpeed));
 
         Flip(xVelocity);
         IsMoving();
@@ -43,22 +42,22 @@ public class HeroMoveLogic
 
     public void ApplyGravity(double delta)
     {
-        UpdateY(Hero.Velocity.Y + (float)(_gravity * delta));
+        UpdateY(_hero.Velocity.Y + (float)(_gravity * delta));
     }
 
     private void Flip(float xVelocity)
     {
-        Hero.HeroAnimations.FlipH = xVelocity < 0;
+        _hero.HeroAnimations.FlipH = xVelocity < 0;
     }
 
     private void IsMoving()
     {
-        Hero.IsMoving = Hero.Velocity.X != 0;
+        _hero.IsMoving = _hero.Velocity.X != 0;
     }
 
     private bool IsHeroOnSlope()
     {
-        return Hero.GetFloorNormal().X != 0;
+        return _hero.GetFloorNormal().X != 0;
     }
 
     float Lerp(float firstFloat, float secondFloat, float by)
@@ -68,12 +67,12 @@ public class HeroMoveLogic
 
     public void UpdateX(float x)
     {
-        Hero.Velocity = new Vector2(x, Hero.Velocity.Y);
+        _hero.Velocity = new Vector2(x, _hero.Velocity.Y);
     }
 
     public void UpdateY(float y)
     {
-        Hero.Velocity = new Vector2(Hero.Velocity.X, y);
+        _hero.Velocity = new Vector2(_hero.Velocity.X, y);
     }
 
 }
