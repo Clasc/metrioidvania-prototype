@@ -12,7 +12,7 @@ public class HeroStateIdle : IHeroState
         }
         if (!hero.IsMoving)
         {
-            hero.HeroAnimations.Play("Idle");
+            hero.HeroAnimations.Play(HeroAnimation.IDLE);
             return HeroState.IDLE;
         }
         return HeroState.IDLE;

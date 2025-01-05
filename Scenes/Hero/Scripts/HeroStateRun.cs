@@ -1,10 +1,8 @@
-using System.Text;
-
 public class HeroStateRun : IHeroState
 {
     public IHeroState DoState(HeroStateMachine hero, double deltaTime)
     {
-        hero.HeroAnimations.Play("HeroRun");
+        hero.HeroAnimations.Play(HeroAnimation.RUN);
         if (!hero.IsOnFloor())
         {
             return HeroState.FALL;
