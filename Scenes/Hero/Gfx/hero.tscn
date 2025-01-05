@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://btdnsdg0ypij1" path="res://Scenes/Hero/Gfx/adventurer-Sheet.png" id="1_6hyy6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3fri3"]
-radius = 8.0
+radius = 7.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5u1hx"]
 atlas = ExtResource("1_6hyy6")
@@ -188,9 +188,13 @@ shape = SubResource("CapsuleShape2D_3fri3")
 [node name="HeroAnimations" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_is2aa")
-animation = &"InitJump"
-frame = 3
-frame_progress = 1.0
+animation = &"Idle"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 2560
+limit_bottom = 720
 
 [connection signal="animation_changed" from="HeroAnimations" to="." method="SetLastPlayedAnimation"]
 [connection signal="animation_finished" from="HeroAnimations" to="." method="SetLastPlayedAnimation"]

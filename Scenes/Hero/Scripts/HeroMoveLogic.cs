@@ -5,7 +5,7 @@ public class HeroMoveLogic
     private readonly float _gravity = 1000;
     private readonly float _speed = 1200;
     private readonly float _maxMovementSpeed = 200;
-    private readonly float _jumpForce = -300;
+    private readonly float _jumpForce = -350;
     private readonly float _friction = 0.7f;
     private readonly float _acceleration = 0.5f;
     private readonly HeroStateMachine _hero;
