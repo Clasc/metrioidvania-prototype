@@ -4,8 +4,8 @@ public class HeroStateJump : IHeroState
 {
     public IHeroState DoState(HeroStateMachine hero, double deltaTime)
     {
+        hero.DisableSnap();
         hero.HeroAnimations.Play(HeroAnimation.JUMP);
-        GD.Print("Jump pressed");
         if (hero.IsOnFloor())
         {
             return HeroState.IDLE;
