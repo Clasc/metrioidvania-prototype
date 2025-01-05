@@ -12,7 +12,7 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	private HeroMoveLogic _heroMoveLogic;
 
-	private bool isInitialized;
+	private bool _isInitialized;
 
 	public bool IsMoving { get; internal set; }
 
@@ -20,12 +20,12 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	public override void _Ready()
 	{
-		isInitialized = InitHeroStateMachine();
+		_isInitialized = InitHeroStateMachine();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (isInitialized)
+		if (_isInitialized)
 		{
 			UpdateHeroState(delta);
 			_heroMoveLogic.ApplyGravity(delta);
