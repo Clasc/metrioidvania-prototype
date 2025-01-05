@@ -1,3 +1,5 @@
+using Godot;
+
 public class HeroStateIdle : IHeroState
 {
     public IHeroState DoState(HeroStateMachine hero, double deltaTime)
@@ -6,6 +8,12 @@ public class HeroStateIdle : IHeroState
         {
             return HeroState.FALL;
         }
+
+        if (Input.IsActionJustPressed("Jump"))
+        {
+            return HeroState.INIT_JUMP;
+        }
+
         if (hero.IsMoving)
         {
             return HeroState.RUN;

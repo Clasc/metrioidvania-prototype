@@ -176,7 +176,7 @@ animations = [{
 
 [node name="Hero" type="CharacterBody2D"]
 scale = Vector2(2, 2)
-floor_snap_length = 10.0
+floor_snap_length = 0.0
 script = ExtResource("1_2xyv7")
 AnimationNode = "./HeroAnimations"
 
@@ -188,3 +188,6 @@ shape = SubResource("CapsuleShape2D_3fri3")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_is2aa")
 animation = &"Idle"
+
+[connection signal="animation_changed" from="HeroAnimations" to="." method="SetLastPlayedAnimation"]
+[connection signal="animation_finished" from="HeroAnimations" to="." method="SetLastPlayedAnimation"]

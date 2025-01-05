@@ -16,6 +16,8 @@ public partial class HeroStateMachine : CharacterBody2D
 
 	public bool IsMoving { get; internal set; }
 
+	public string LastPlayedHeroAnimation = string.Empty;
+
 	public override void _Ready()
 	{
 		_isInitialized = InitHeroStateMachine();
@@ -54,5 +56,15 @@ public partial class HeroStateMachine : CharacterBody2D
 	private void UpdateHeroState(double delta)
 	{
 		_currentState = _currentState.DoState(this, delta);
+	}
+
+	internal void Jump()
+	{
+		_heroMoveLogic.Jump();
+	}
+
+	private void SetLastPlayedAnimation()
+	{
+		LastPlayedHeroAnimation = HeroAnimations.Animation.ToString();
 	}
 }
