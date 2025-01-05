@@ -49,7 +49,7 @@ public partial class HeroStateMachine : CharacterBody2D
 
 		if (HeroAnimations is null)
 		{
-			GD.PrintErr("HeroStatemachine.cs -- GetAnimationsNode() -- HeroAnimations is null");
+			GD.PrintErr("AnimationNode cannot be found", AnimationNode);
 			return false;
 		}
 		return true;
