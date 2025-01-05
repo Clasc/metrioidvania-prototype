@@ -176,7 +176,8 @@ animations = [{
 
 [node name="Hero" type="CharacterBody2D"]
 scale = Vector2(2, 2)
-floor_snap_length = 2.0
+floor_max_angle = 1.13446
+floor_snap_length = 10.0
 script = ExtResource("1_2xyv7")
 AnimationNode = "./HeroAnimations"
 
