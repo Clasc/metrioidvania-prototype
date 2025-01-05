@@ -5,7 +5,7 @@ public class HeroMoveLogic
     private readonly float _gravity = 1000;
     private readonly float _speed = 1200;
     private readonly float _maxMovementSpeed = 200;
-    private readonly float _jumpForce = 500;
+    private readonly float _jumpForce = -300;
     private readonly float _friction = 0.7f;
     private readonly float _acceleration = 0.5f;
     private readonly HeroStateMachine _hero;
@@ -72,6 +72,7 @@ public class HeroMoveLogic
     {
         _hero.Velocity = new Vector2(_hero.Velocity.X, y);
     }
+
     public void Jump()
     {
         UpdateY(_jumpForce);

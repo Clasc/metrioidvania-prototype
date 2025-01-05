@@ -17,10 +17,12 @@ public partial class HeroStateMachine : CharacterBody2D
 	public bool IsMoving { get; internal set; }
 
 	public string LastPlayedHeroAnimation = string.Empty;
+	private float DefaultSnap = 0.0f;
 
 	public override void _Ready()
 	{
 		_isInitialized = InitHeroStateMachine();
+		DefaultSnap = FloorSnapLength;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -66,5 +68,15 @@ public partial class HeroStateMachine : CharacterBody2D
 	private void SetLastPlayedAnimation()
 	{
 		LastPlayedHeroAnimation = HeroAnimations.Animation.ToString();
+	}
+
+	internal void EnableSnap()
+	{
+		FloorSnapLength = DefaultSnap;
+	}
+
+	internal void DisableSnap()
+	{
+		FloorSnapLength = 0;
 	}
 }

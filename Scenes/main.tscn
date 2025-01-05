@@ -389,4 +389,4 @@ tile_set = SubResource("TileSet_wl1eh")
 rendering_quadrant_size = 32
 
 [node name="Hero" parent="." instance=ExtResource("3_4bns4")]
-position = Vector2(540, 294)
+position = Vector2(542, 294)
